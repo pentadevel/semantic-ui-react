@@ -520,6 +520,15 @@ export default class Dropdown extends Component {
     const currentTarget = _.get(e, 'currentTarget')
     if (currentTarget && currentTarget.contains(document.activeElement)) return
 
+    if (
+      e?.target?.role === 'listbox' &&
+      e?.target?.classList?.contains('visible') &&
+      e?.target?.classList?.contains('menu') &&
+      e?.target?.classList?.contains('transition') &&
+      e?.type === 'blur'
+    )
+      return
+
     const { closeOnBlur, multiple, selectOnBlur } = this.props
     // do not "blur" when the mouse is down inside of the Dropdown
     if (this.isMouseDown) return
